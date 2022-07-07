@@ -1,11 +1,12 @@
 package com.example.practice.model;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.UUID;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Heading {
     @Builder.Default

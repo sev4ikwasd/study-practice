@@ -54,12 +54,10 @@ public class MarketServiceImpl implements MarketService {
 
     @Override
     public void updateMarket(UUID marketId, MarketRequest request) {
-        marketRepository.saveMarket(
-                Market.builder()
-                        .id(marketId)
-                        .name(request.name())
-                        .category(request.category())
-                        .isBlocked(false).build());
+        Market market = marketRepository.getMarketById(marketId);
+        market.setName(request.name());
+        market.setCategory(request.category());
+        marketRepository.saveMarket(market);
     }
 
     @Override
