@@ -8,7 +8,10 @@ import java.util.UUID;
 
 public interface MarketRepository {
     List<Market> getAllMarkets();
+
     Market getMarketById(UUID id) throws MarketNotFoundException;
+
     Market saveMarket(Market market);
+
     void removeMarket(UUID id) throws MarketNotFoundException;
 }

@@ -57,7 +57,7 @@ public class MarketController {
 
     @PostMapping("/market/{marketId}/addHeading")
     public ResponseEntity<MarketResponse> addMarketHeading(@PathVariable @ValidUUID String marketId,
-                                                 @Valid @RequestBody HeadingRequest request) {
+                                                           @Valid @RequestBody HeadingRequest request) {
         return ResponseEntity.ok(marketService.addHeading(UUID.fromString(marketId), request));
     }
 

@@ -10,11 +10,18 @@ import java.util.UUID;
 
 public interface MarketService {
     List<MarketResponse> getAllMarkets();
+
     MarketResponse getMarketById(UUID id);
+
     Market createMarket(MarketRequest request);
+
     void updateMarket(UUID marketId, MarketRequest request);
+
     void blockMarket(UUID marketId, boolean toBlock);
+
     MarketResponse addHeading(UUID marketId, HeadingRequest request);
+
     void removeHeading(UUID marketId, UUID headingId);
+
     void removeMarket(UUID id);
 }
