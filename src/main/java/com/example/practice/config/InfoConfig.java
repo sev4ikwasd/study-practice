@@ -15,9 +15,12 @@ import org.springframework.context.annotation.Configuration;
 public class InfoConfig {
     private String name;
     private String description;
+    private String creator;
+    private String variant;
+    private int year;
 
     @Bean
     public InfoService infoService() {
-        return () -> new InfoResponse(name, description);
+        return () -> new InfoResponse(name, description, creator, variant, year);
     }
 }
