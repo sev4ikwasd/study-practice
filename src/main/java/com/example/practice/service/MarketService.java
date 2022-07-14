@@ -13,15 +13,15 @@ public interface MarketService {
 
     MarketResponse getMarketById(UUID id);
 
-    Market createMarket(MarketRequest request);
+    MarketResponse createMarket(MarketRequest request);
 
-    void updateMarket(UUID marketId, MarketRequest request);
+    MarketResponse updateMarket(UUID marketId, MarketRequest request);
 
-    void blockMarket(UUID marketId, boolean toBlock);
+    MarketResponse blockMarket(UUID marketId, boolean toBlock);
 
     MarketResponse addHeading(UUID marketId, HeadingRequest request);
 
-    void removeHeading(UUID marketId, UUID headingId);
+    MarketResponse removeHeading(UUID marketId, UUID headingId);
 
     void removeMarket(UUID id);
 }

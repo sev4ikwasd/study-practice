@@ -44,27 +44,27 @@ public class MarketServiceImpl implements MarketService {
     }
 
     @Override
-    public Market createMarket(MarketRequest request) {
-        return marketRepository.saveMarket(
+    public MarketResponse createMarket(MarketRequest request) {
+        return marketToMarketResponse(marketRepository.saveMarket(
                 Market.builder()
                         .name(request.name())
                         .category(request.category())
-                        .isBlocked(false).build());
+                        .isBlocked(false).build()));
     }
 
     @Override
-    public void updateMarket(UUID marketId, MarketRequest request) {
+    public MarketResponse updateMarket(UUID marketId, MarketRequest request) {
         Market market = marketRepository.getMarketById(marketId);
         market.setName(request.name());
         market.setCategory(request.category());
-        marketRepository.saveMarket(market);
+        return marketToMarketResponse(marketRepository.saveMarket(market));
     }
 
     @Override
-    public void blockMarket(UUID marketId, boolean toBlock) {
+    public MarketResponse blockMarket(UUID marketId, boolean toBlock) {
         Market market = marketRepository.getMarketById(marketId);
         market.setBlocked(toBlock);
-        marketRepository.saveMarket(market);
+        return marketToMarketResponse(marketRepository.saveMarket(market));
     }
 
     @Override
@@ -79,13 +79,13 @@ public class MarketServiceImpl implements MarketService {
     }
 
     @Override
-    public void removeHeading(UUID marketId, UUID headingId) {
+    public MarketResponse removeHeading(UUID marketId, UUID headingId) {
         Market market = marketRepository.getMarketById(marketId);
         Heading headingToRemove = market.getHeadings().stream()
                 .filter(heading -> heading.getId().equals(headingId)).findFirst()
                 .orElseThrow(() -> new HeadingNotFoundException(headingId));
         market.getHeadings().remove(headingToRemove);
-        marketRepository.saveMarket(market);
+        return marketToMarketResponse(marketRepository.saveMarket(market));
     }
 
     @Override

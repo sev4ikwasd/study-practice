@@ -32,27 +32,25 @@ public class MarketController {
     }
 
     @PostMapping("/market")
-    public ResponseEntity<Void> createMarket(@Valid @RequestBody MarketRequest request) {
-        return ResponseEntity.created(URI.create("market/" + marketService.createMarket(request).getId())).build();
+    public ResponseEntity<MarketResponse> createMarket(@Valid @RequestBody MarketRequest request) {
+        MarketResponse response = marketService.createMarket(request);
+        return ResponseEntity.created(URI.create("market/" + response.id())).body(response);
     }
 
     @PutMapping("/market/{marketId}")
-    public ResponseEntity<Void> changeMarket(@PathVariable @ValidUUID String marketId,
+    public ResponseEntity<MarketResponse> changeMarket(@PathVariable @ValidUUID String marketId,
                                              @Valid @RequestBody MarketRequest request) {
-        marketService.updateMarket(UUID.fromString(marketId), request);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(marketService.updateMarket(UUID.fromString(marketId), request));
     }
 
     @GetMapping("/market/{marketId}/block")
-    public ResponseEntity<Void> blockMarket(@PathVariable @ValidUUID String marketId) {
-        marketService.blockMarket(UUID.fromString(marketId), true);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<MarketResponse> blockMarket(@PathVariable @ValidUUID String marketId) {
+        return ResponseEntity.ok(marketService.blockMarket(UUID.fromString(marketId), true));
     }
 
     @GetMapping("/market/{marketId}/unblock")
-    public ResponseEntity<Void> unblockMarket(@PathVariable @ValidUUID String marketId) {
-        marketService.blockMarket(UUID.fromString(marketId), false);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<MarketResponse> unblockMarket(@PathVariable @ValidUUID String marketId) {
+        return ResponseEntity.ok(marketService.blockMarket(UUID.fromString(marketId), false));
     }
 
     @PostMapping("/market/{marketId}/addHeading")
@@ -62,10 +60,9 @@ public class MarketController {
     }
 
     @DeleteMapping("/market/{marketId}/removeHeading/{headingId}")
-    public ResponseEntity<Void> removeMarketHeading(@PathVariable("marketId") @ValidUUID String marketId,
+    public ResponseEntity<MarketResponse> removeMarketHeading(@PathVariable("marketId") @ValidUUID String marketId,
                                                     @PathVariable("headingId") @ValidUUID String headingId) {
-        marketService.removeHeading(UUID.fromString(marketId), UUID.fromString(headingId));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(marketService.removeHeading(UUID.fromString(marketId), UUID.fromString(headingId)));
     }
 
     @DeleteMapping("/market/{marketId}")
